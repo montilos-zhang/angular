@@ -1,0 +1,82 @@
+<html ng-app="todoApp">
+<head>
+<meta charset="UTF-8">
+<title>Sample</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+<script>
+var myApp = angular.module('todoApp', []);
+myApp.controller('TodoListController', function() {
+	//this.todo = {text: 'AngularJSを学ぶ', done: true};
+  var todoList = this;
+
+  var todos = [
+    {text: 'AngularJSを学ぶ', done: true},
+		{text: 'AngularJSでアプリケーションをつくる', done: false},
+    {text: 'AngularJSで楽しめましょう',done: false}
+  ];
+  todoList.todos = todos;
+  todoList.addTodo = function() {
+		var newTodo = todoList.todoText;
+
+		if (newTodo) {
+			todoList.todos.push({text: newTodo, done: false});
+			todoList.todoText = '';
+		}
+	}
+  todoList.remaining = function() {
+    var count = 0;
+    angular.forEach(todos, function(todo) {
+      if (!todo.done) {
+				count++;
+			}
+    });
+    return count;
+  }
+  todoList.archive = function() {
+		todos = [];
+		angular.forEach(todoList.todos, function(todo) {
+			if (!todo.done) {
+				todos.push(todo);
+			}
+		});
+		todoList.todos = todos;
+	}
+});
+</script>
+<style>
+.done-true {
+	text-decoration: line-through;
+	color: grey;
+}
+</style>
+</head>
+
+<div class="container">
+	<h2>Todo</h2>
+	<div ng-controller="TodoListController as todoList">
+    <span>全{{todoList.todos.length}}件中残り{{todoList.remaining()}}件</span>
+    [ <a href="" ng-click="todoList.archive()">断捨離</a> ]
+		<ul class="list-unstyled">
+			<li ng-repeat="todo in todoList.todos">
+				 <!-- <input type="checkbox" ng-model="todoList.todo.done">
+				 <span class="done-{{todo.done}}">{{todo.text}}</span> -->
+        <input type="checkbox" ng-model="todo.done" id="{{todo.text}}">
+        <label for="{{todo.text}}"><span class="done-{{todo.done}}" >{{todo.text}}</span></label>
+			</li>
+		</ul>
+		<form ng-submit="todoList.addTodo()">
+			<!--input type="text" ng-model="todoList.todo.text" size="30" placeholder="add a todo here"-->
+      <!-- <input type="text" ng-model="todoList.todos[0].text" size="30" placeholder="add a todo here"> -->
+      <input type="text" ng-model="todoList.todoText" size="30" placeholder="add new todo here">
+	    <input class="btn btn-primary btn-sm" type="submit" value="追加">
+		</form>
+	</div>
+</div>
+</html>

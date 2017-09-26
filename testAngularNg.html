@@ -1,0 +1,55 @@
+<html ng-app>
+<head>
+<meta charset="UTF-8">
+<title>Sample</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+
+<style>
+.done-true {
+	text-decoration: line-through;
+	color: grey;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+	<h2>Test</h2>
+	<h3>Hello {{yourname}}!</h3>
+	<form>
+		<input type="text" ng-model="yourname" placeholder="enter a name here">
+	</form>
+</div>
+
+<div class="container">
+	<h2>TODO</h2>
+	<div>
+		<!-- <ul class="list-unstyled">
+			<li>
+				<input type="checkbox">
+				<span>{{todo}}</span>
+			</li>
+		</ul>
+		<form>
+			<input type="text" ng-model="todo" size="30" placeholder="please input todo here">
+		</form> -->
+		<ul class="list-unstyled">
+	<li>
+		<input type="checkbox" ng-model="todo.done">
+		<span class="done-{{todo.done}}">{{todo.text}}</span>
+	</li>
+</ul>
+<form>
+	<input type="text" ng-model="todo.text" size="30" placeholder="add a todo here">
+</form>
+	</div>
+</div>
+</body>
+</html>
